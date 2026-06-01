@@ -2,23 +2,21 @@ public class Alimentacao extends Loja {
 
     private Data dataAlvara;
 
-    
     public Alimentacao(String nome, int quantidadeFuncionarios, double salarioBase,
-                       Endereco endereco, Data fundacao,
-                       Data dataAlvara) {
+            Endereco endereco, Data fundacao,
+            Data dataAlvara) {
 
         super(nome, quantidadeFuncionarios, salarioBase, endereco, fundacao);
         this.dataAlvara = dataAlvara;
     }
 
     public Alimentacao(String nome, int quantidadeFuncionarios, double salarioBase,
-                       Endereco endereco, Data dataFundacao, Data dataAlvara, int capacidadeEstoque) {
+            Endereco endereco, Data dataFundacao, Data dataAlvara, int capacidadeEstoque) {
 
         super(nome, quantidadeFuncionarios, salarioBase, endereco, dataFundacao);
         this.dataAlvara = dataAlvara;
     }
 
-    
     public Data getDataAlvara() {
         return dataAlvara;
     }
@@ -27,10 +25,9 @@ public class Alimentacao extends Loja {
         this.dataAlvara = dataAlvara;
     }
 
-    
-    @Override 
+    @Override
     public String toString() {
         return super.toString() +
-               "\nData do Alvará: " + dataAlvara;
+                "\nData do Alvará: " + dataAlvara;
     }
 }

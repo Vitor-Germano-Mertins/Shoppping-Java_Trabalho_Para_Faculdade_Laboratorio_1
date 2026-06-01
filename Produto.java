@@ -14,31 +14,50 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public double getPreco() { return preco; }
-    public void setPreco(double preco) { this.preco = preco; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public Data getDataValidade() { return dataValidade; }
-    public void setDataValidade(Data dataValidade) { this.dataValidade = dataValidade; }
+    public double getPreco() {
+        return preco;
+    }
 
-    public boolean estaVencido(Data data) { 
-        if(dataValidade == null) return false;
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
 
-        if (dataValidade.getAno() < data.getAno()) return true;
+    public Data getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(Data dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public boolean estaVencido(Data data) {
+        if (dataValidade == null)
+            return false;
+
+        if (dataValidade.getAno() < data.getAno())
+            return true;
         if (dataValidade.getAno() == data.getAno()) {
-            if (dataValidade.getMes() < data.getMes()) return true;
+            if (dataValidade.getMes() < data.getMes())
+                return true;
             if (dataValidade.getMes() == data.getMes()) {
                 return dataValidade.getDia() < data.getDia();
             }
         }
         return false;
     }
-    @Override 
+
+    @Override
     public String toString() {
-    return "Produto: " + nome +
-           " | Preço: " + preco +
-           " | Validade: " + dataValidade;
-}
+        return "Produto: " + nome +
+                " | Preço: " + preco +
+                " | Validade: " + dataValidade;
+    }
 }

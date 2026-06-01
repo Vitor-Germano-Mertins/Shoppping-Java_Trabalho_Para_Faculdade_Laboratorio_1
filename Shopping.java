@@ -2,7 +2,7 @@ public class Shopping {
 
     private String nome;
     private Endereco endereco;
-    private Loja[] lojas;    //array de lojas do shopping
+    private Loja[] lojas; // array de lojas do shopping
 
     // Construtor
     public Shopping(String nome, Endereco endereco, int capacidadeLojas) {
@@ -12,18 +12,34 @@ public class Shopping {
     }
 
     // GETTERS E SETTERS
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public Endereco getEndereco() { return endereco; }
-    public void setEndereco(Endereco endereco) { this.endereco = endereco; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public Loja[] getLojas() { return lojas; }
-    public void setLojas(Loja[] lojas) { this.lojas = lojas; }
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Loja[] getLojas() {
+        return lojas;
+    }
+
+    public void setLojas(Loja[] lojas) {
+        this.lojas = lojas;
+    }
 
     // insereLoja - insere uma loja no array de lojas do shopping
     public boolean insereLoja(Loja loja) {
-        if (loja == null) return false;
+        if (loja == null)
+            return false;
 
         for (int i = 0; i < lojas.length; i++) {
             if (lojas[i] == null) {
@@ -36,11 +52,12 @@ public class Shopping {
 
     // removeLoja
     public boolean removeLoja(String nomeLoja) {
-        if (nomeLoja == null) return false;
+        if (nomeLoja == null)
+            return false;
 
         for (int i = 0; i < lojas.length; i++) {
             if (lojas[i] != null &&
-                lojas[i].getNome().equalsIgnoreCase(nomeLoja)) {
+                    lojas[i].getNome().equalsIgnoreCase(nomeLoja)) {
 
                 lojas[i] = null;
                 return true;
@@ -52,41 +69,50 @@ public class Shopping {
     // quantidadeLojasPorTipo
     public int quantidadeLojasPorTipo(String tipo) {
 
-        if (tipo == null) return -1;
+        if (tipo == null)
+            return -1;
 
         int contador = 0;
 
         for (Loja loja : lojas) {
-            if (loja == null) continue;
+            if (loja == null)
+                continue;
 
-            if (tipo.equalsIgnoreCase("Cosmetico") && loja instanceof Cosmetico) contador++;
-            else if (tipo.equalsIgnoreCase("Vestuario") && loja instanceof Vestuario) contador++;
-            else if (tipo.equalsIgnoreCase("Bijuteria") && loja instanceof Bijuteria) contador++;
-            else if (tipo.equalsIgnoreCase("Alimentacao") && loja instanceof Alimentacao) contador++;
-            else if (tipo.equalsIgnoreCase("Informatica") && loja instanceof Informatica) contador++;
+            if (tipo.equalsIgnoreCase("Cosmetico") && loja instanceof Cosmetico)
+                contador++;
+            else if (tipo.equalsIgnoreCase("Vestuario") && loja instanceof Vestuario)
+                contador++;
+            else if (tipo.equalsIgnoreCase("Bijuteria") && loja instanceof Bijuteria)
+                contador++;
+            else if (tipo.equalsIgnoreCase("Alimentacao") && loja instanceof Alimentacao)
+                contador++;
+            else if (tipo.equalsIgnoreCase("Informatica") && loja instanceof Informatica)
+                contador++;
         }
 
         if (!tipo.equalsIgnoreCase("Cosmetico") &&
-            !tipo.equalsIgnoreCase("Vestuario") &&
-            !tipo.equalsIgnoreCase("Bijuteria") &&
-            !tipo.equalsIgnoreCase("Alimentacao") &&
-            !tipo.equalsIgnoreCase("Informatica")) {
+                !tipo.equalsIgnoreCase("Vestuario") &&
+                !tipo.equalsIgnoreCase("Bijuteria") &&
+                !tipo.equalsIgnoreCase("Alimentacao") &&
+                !tipo.equalsIgnoreCase("Informatica")) {
             return -1;
         }
 
         return contador;
     }
 
-    // lojaSeguroMaisCaro  //verifica cada loja do shopping, e retorna a loja de informática com o seguro mais caro. Se não houver lojas de informática, retorna null.
+    // lojaSeguroMaisCaro //verifica cada loja do shopping, e retorna a loja de
+    // informática com o seguro mais caro. Se não houver lojas de informática,
+    // retorna null.
     public Informatica lojaSeguroMaisCaro() {
 
         Informatica maior = null;
 
         for (Loja loja : lojas) {
-            if (loja instanceof Informatica info) { 
+            if (loja instanceof Informatica info) {
 
                 if (maior == null ||
-                    info.getSeguroEletronicos() > maior.getSeguroEletronicos()) {
+                        info.getSeguroEletronicos() > maior.getSeguroEletronicos()) {
 
                     maior = info;
                 }
@@ -96,10 +122,67 @@ public class Shopping {
         return maior;
     }
 
+    public void listarProdutosDasLojas() {
+
+        for (Loja loja : lojas) {
+
+            if (loja != null) {
+                System.out.println("\n=== " + loja.getNome() + " ===");
+                System.out.println(loja.listarProdutos());
+            }
+        }
+    }
+
+    public Loja buscarLojaPorNome(String nome) {
+
+        for (Loja loja : lojas) {
+
+            if (loja != null &&
+                    loja.getNome().equalsIgnoreCase(nome)) {
+
+                return loja;
+            }
+        }
+
+        return null;
+    }
+
+    public void listarProdutosPorTipo(String tipo) {
+
+        for (Loja loja : lojas) {
+
+            if (loja == null) {
+                continue;
+            }
+
+            boolean corresponde = false;
+
+            switch (tipo.toLowerCase()) {
+
+                case "alimentacao" -> corresponde = loja instanceof Alimentacao;
+
+                case "informatica" -> corresponde = loja instanceof Informatica;
+
+                case "vestuario" -> corresponde = loja instanceof Vestuario;
+
+                case "bijuteria" -> corresponde = loja instanceof Bijuteria;
+
+                case "cosmetico" -> corresponde = loja instanceof Cosmetico;
+            }
+
+            if (corresponde) {
+
+                System.out.println("\nLoja: " + loja.getNome());
+
+                loja.imprimeProdutos();
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Shopping: " + nome +
-               "\nEndereço: " + endereco +
-               "\nCapacidade de lojas: " + lojas.length;
+                "\nEndereço: " + endereco +
+                "\nCapacidade de lojas: " + lojas.length;
     }
 }

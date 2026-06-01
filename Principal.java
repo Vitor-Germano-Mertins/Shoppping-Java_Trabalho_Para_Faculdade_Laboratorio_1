@@ -9,8 +9,7 @@ public class Principal {
 
             Endereco enderecoShopping = new Endereco(
                     "Rua Principal", "Cidade", "Estado",
-                    "Brasil", "00000-000", "100", "Shopping"
-            );
+                    "Brasil", "00000-000", "100", "Shopping");
 
             Shopping shopping = new Shopping("Meu Shopping", enderecoShopping, 20);
 
@@ -22,7 +21,9 @@ public class Principal {
                 System.out.println("(2) Criar produto");
                 System.out.println("(3) Mostrar loja de informática com seguro mais caro");
                 System.out.println("(4) Mostrar quantidade de lojas por tipo");
-                System.out.println("(5) Sair");
+                System.out.println("(5) Listar produtos por tipo de loja");
+                System.out.println("(6) Remover produto");
+                System.out.println("(7) Sair");
                 System.out.print("Escolha: ");
 
                 opcao = sc.nextInt();
@@ -91,8 +92,7 @@ public class Principal {
 
                         Endereco endereco = new Endereco(
                                 rua, cidade, estado,
-                                pais, cep, numero, comp
-                        );
+                                pais, cep, numero, comp);
 
                         Data fundacao = new Data(diaF, mesF, anoF);
 
@@ -116,8 +116,7 @@ public class Principal {
                                 loja = new Alimentacao(
                                         nomeLoja, qtd, salario,
                                         endereco, fundacao,
-                                        alvara, capacidade
-                                );
+                                        alvara, capacidade);
                             }
 
                             case 2 -> {
@@ -128,8 +127,7 @@ public class Principal {
                                 loja = new Informatica(
                                         nomeLoja, qtd, salario,
                                         endereco, fundacao,
-                                        capacidade, seguro
-                                );
+                                        capacidade, seguro);
                             }
 
                             case 3 -> {
@@ -140,8 +138,7 @@ public class Principal {
                                 loja = new Vestuario(
                                         nomeLoja, qtd, salario,
                                         endereco, fundacao,
-                                        importados, capacidade
-                                );
+                                        importados, capacidade);
                             }
 
                             case 4 -> {
@@ -152,8 +149,7 @@ public class Principal {
                                 loja = new Bijuteria(
                                         nomeLoja, qtd, salario,
                                         endereco, fundacao,
-                                        capacidade, meta
-                                );
+                                        capacidade, meta);
                             }
 
                             case 5 -> {
@@ -164,8 +160,7 @@ public class Principal {
                                 loja = new Cosmetico(
                                         nomeLoja, qtd, salario,
                                         endereco, fundacao,
-                                        taxa, capacidade
-                                );
+                                        taxa, capacidade);
                             }
 
                             default -> {
@@ -221,6 +216,40 @@ public class Principal {
                         produto = new Produto(nomeProd, preco, validade);
 
                         System.out.println("Produto criado com sucesso!");
+
+                        Data referencia = new Data(20, 10, 2023);
+
+                        if (produto.estaVencido(referencia)) {
+
+                            System.out.println("PRODUTO VENCIDO");
+
+                        } else {
+
+                            System.out.println("PRODUTO NÃO VENCIDO");
+                        }
+
+                        sc.nextLine();
+
+                        System.out.print("Nome da loja que receberá o produto: ");
+                        String nomeLoja = sc.nextLine();
+
+                        Loja lojaEncontrada = shopping.buscarLojaPorNome(nomeLoja);
+
+                        if (lojaEncontrada != null) {
+
+                            if (lojaEncontrada.insereProduto(produto)) {
+
+                                System.out.println("Produto adicionado à loja!");
+
+                            } else {
+
+                                System.out.println("Estoque cheio!");
+                            }
+
+                        } else {
+
+                            System.out.println("Loja não encontrada.");
+                        }
                     }
 
                     case 3 -> {
@@ -258,6 +287,53 @@ public class Principal {
                     }
 
                     case 5 -> {
+
+                        sc.nextLine();
+
+                        System.out.println("\nTipos disponíveis:");
+                        System.out.println("Alimentacao");
+                        System.out.println("Informatica");
+                        System.out.println("Vestuario");
+                        System.out.println("Bijuteria");
+                        System.out.println("Cosmetico");
+
+                        System.out.print("Digite o tipo: ");
+                        String tipo = sc.nextLine();
+
+                        shopping.listarProdutosPorTipo(tipo);
+                    }
+
+                    case 6 -> {
+
+                        sc.nextLine();
+
+                        System.out.print("Digite o nome do produto: ");
+                        String nomeProduto = sc.nextLine();
+
+                        boolean removido = false;
+
+                        for (Loja loja : shopping.getLojas()) {
+
+                            if (loja != null) {
+
+                                if (loja.removeProduto(nomeProduto)) {
+
+                                    System.out.println("Produto removido da loja: "
+                                            + loja.getNome());
+
+                                    removido = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!removido) {
+
+                            System.out.println("Produto não encontrado.");
+                        }
+                    }
+
+                    case 7 -> {
                         System.out.println("Encerrando...");
                     }
 
@@ -266,21 +342,7 @@ public class Principal {
                     }
                 }
 
-            } while (opcao != 5);
-
-            if (produto != null) {
-
-                Data referencia = new Data(20, 10, 2023);
-
-                if (produto.estaVencido(referencia)) {
-
-                    System.out.println("PRODUTO VENCIDO");
-
-                } else {
-
-                    System.out.println("PRODUTO NÃO VENCIDO");
-                }
-            }
+            } while (opcao != 7);
         }
     }
 }

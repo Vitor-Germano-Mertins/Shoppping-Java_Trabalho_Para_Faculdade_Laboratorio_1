@@ -2,23 +2,20 @@ public class Vestuario extends Loja {
 
     private boolean produtosImportados;
 
-    
     public Vestuario(String nome, int quantidadeFuncionarios, double salarioBase,
-                     Endereco endereco, Data dataFundacao, boolean produtosImportados) {
+            Endereco endereco, Data dataFundacao, boolean produtosImportados) {
 
         super(nome, quantidadeFuncionarios, salarioBase, endereco, dataFundacao);
         this.produtosImportados = produtosImportados;
     }
 
     public Vestuario(String nome, int quantidadeFuncionarios, double salarioBase, Endereco endereco,
-        Data dataFundacao, boolean produtosImportados, int capacidadeEstoque) {
+            Data dataFundacao, boolean produtosImportados, int capacidadeEstoque) {
 
         super(nome, quantidadeFuncionarios, salarioBase, endereco, dataFundacao, capacidadeEstoque);
         this.produtosImportados = produtosImportados;
     }
-    
 
-   
     public boolean getProdutosImportados() {
         return produtosImportados;
     }
@@ -27,10 +24,9 @@ public class Vestuario extends Loja {
         this.produtosImportados = produtosImportados;
     }
 
-    
-    @Override 
+    @Override
     public String toString() {
         return super.toString() +
-               "\nProdutos Importados: " + produtosImportados;
+                "\nProdutos Importados: " + produtosImportados;
     }
 }
